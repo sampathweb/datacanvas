@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{%block title %} Seeing the Air: {{city}}{%endblock title %}
+{% block body %}
+
+<div class="row">
+  <div class="col-sm-3">
+    <div style="margin-top:10px; position:fixed; top:0px; height:70px;">
+      <span style="font-weight:bold; margin-left:0px;" class="header-5">
+        <img src="{{url_for('static', filename='images/clock.png')}}" width="56" height="56">&nbsp;<a href="{{url_for('main.index')}}">Seeing the Air</a>
+      </span>
+    </div>
+    <div id="filter-container" style="border:1px solid #ccc; width:210px; position:fixed; top:80px; border-radius: 6px; padding:10px 10px 16px 10px;">
+     
+      <table class="filter-list" style="margin-bottom:14px; height:30px;">
+        <tr>
+          <td><div style="font-size:18px;">Filters</div></td>
+          <td>
+            <div id="spinner" style="font-size:11px; color:#999; padding-left:40px; display:none;">
+               <img src="{{url_for('static', filename='images/spinner.gif')}}">&nbsp;Loading 
+            </div>
+          </td>
+        </tr>
+      </table>
+        
+      <table class="filter-list" style="margin-bottom:3px;">
+        <tr>
+          <td style="width:70px; font-size:11px; font-weight:bold; padding-bottom:6px;">Month</td>
+          <td style="font-size:11px; padding-bottom:6px;">Average air quality</td>
+        </tr>
+        <tr>
+          <td id="filter-month-buttons"></td>
+          <td id="filter-month-chart" style="text-align:top;"></td>
+        </tr>
+      </table>
+
+      <table class="filter-list" style="margin-bottom:3px; margin-top:20px;">
+        <tr>
+          <td style="width:70px; font-size:11px; font-weight:bold; padding-bottom:9px;">Time of day</td>
+          <td style="font-size:11px; padding-bottom:6px;"></td>
+        </tr>
+        <tr>
+          <td id="filter-time-buttons"></td>
+          <td id="filter-time-chart"></td>
+        </tr>
+      </table>
+      <div style="margin-top:30px;">
+        <button id="reset-filters" class="btn btn-default btn-sm" style="width:100%;">Reset filters</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div style="margin-top:27px; vertical-align:center;">
+      <a class="{{'selected' if city == 'Bangalore'}}" href="{{url_for('main.city', name='Bangalore')}}">Bangalore</a> -
+      <a class="{{'selected' if city == 'Boston'}}" href="{{url_for('main.city', name='Boston')}}">Boston</a> -
+      <a class="{{'selected' if city == 'Geneva'}}" href="{{url_for('main.city', name='Geneva')}}">Geneva</a> -
+      <a class="{{'selected' if city == 'Rio de Janeiro'}}" href="{{url_for('main.city', name='Rio de Janeiro')}}">Rio de Janeiro</a> -
+      <a class="{{'selected' if city == 'San Francisco'}}" href="{{url_for('main.city', name='San Francisco')}}">San Francisco</a> -
+      <a class="{{'selected' if city == 'Shanghai'}}" href="{{url_for('main.city', name='Shanghai')}}">Shanghai</a> -
+      <a class="{{'selected' if city == 'Singapore'}}" href="{{url_for('main.city', name='Singapore')}}">Singapore</a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="header-1">{{city}}</div>
+        
+        <div class="header-2">Measuring Air Quality</div>
+        <p>
+          Air quality is measured by the air quality index, or AQI, a standard maintained by the U.S. Environmental Protection Agency. It takes into consideration five major air pollutants: ground-level ozone, particle pollution, carbon monoxide, sulfur dioxide, and nitrogen dioxide. AQI values span from 0 to 500, with 0 being clean and 500 being extremely hazardous.
+        
+        
+        <div class="chart-header" style="border-bottom:1px solid #ccc; padding-bottom:10px;">{{city}}'s Daily Air Quality</div>
+        <div id="timeseries-explanation" style="margin-bottom:20px;">Daily AQI scores January to March, 2015 using data collected between 2 and 4pm</div>
+       
+        <div id="timeseries-airquality_raw" class="chart-container"></div>
+        <div id="timeseries-temperature" class="chart-container"></div>
+        
+         <div style="font-size:11px; line-height:16px; margin-top:20px; padding:0px 20px 10px 20px;">
+          <strong>Air quality index key:</strong>&nbsp;
+          <span contenteditable='false' class='dot good'>2</span> 0 to 50: good&nbsp;
+          <span contenteditable='false' class='dot moderate'>2</span> 51 to 100: moderate&nbsp;
+          <span contenteditable='false' class='dot unhealthy-mild'>2</span> 101 to 150: unhealthy for sensitive groups&nbsp;
+          <span contenteditable='false' class='dot unhealthy'>2</span> 151 to 200: unhealthy&nbsp;
+          <span contenteditable='false' class='dot unhealthy-very'>2</span> 201 to 300: very unhealthy&nbsp;
+          <span contenteditable='false' class='dot hazardous'>2</span> 301 to 500: hazardous. [1]
+        </div>
+
+        <div class="chart-header" style="border-bottom:1px solid #ccc; padding-bottom:10px;">{{city}}'s Air Quality Compared to Other Cities</div>
+        <div style="height:60px;">
+          The chart below ranks the seven cities being measured by average AQI score. It also shows the the minimum and maximum AQI scores for each. <span id="rank-explanation"></span>
+        </div>
+        <div id="ranking-airquality_raw" class="chart-container"></div>
+
+        <div style="font-size:11px; line-height:16px; margin-top:10px; padding:0px 20px 0px 20px;">
+          <strong>Air quality index key:</strong>&nbsp;
+          <span contenteditable='false' class='dot good'>2</span> 0 to 50: good&nbsp;
+          <span contenteditable='false' class='dot moderate'>2</span> 51 to 100: moderate&nbsp;
+          <span contenteditable='false' class='dot unhealthy-mild'>2</span> 101 to 150: unhealthy for sensitive groups&nbsp;
+          <span contenteditable='false' class='dot unhealthy'>2</span> 151 to 200: unhealthy&nbsp;
+          <span contenteditable='false' class='dot unhealthy-very'>2</span> 201 to 300: very unhealthy&nbsp;
+          <span contenteditable='false' class='dot hazardous'>2</span> 301 to 500: hazardous. [1]
+        </div>
+
+        <div class="chart-header" style="border-bottom:1px solid #ccc; padding-bottom:10px;">{{city}}'s Air Quality Score Card</div>
+        <p>
+          Below is a score card showing the number of days {{city}} reached each category of the air quality index. <span id="score-explanation"></span>
+        <div id="scorecard-airquality_raw"></div>
+ 
+        <hr style="margin-top:40px;">
+
+        <!--<p style="font-size:11px; color:#999;">
+          [1] Notes on measurements: Lorem ipsum dolor sit amet, vis cu clita rationibus, his et ancillae sensibus. Illum saepe disputando id has, deserunt delicata appellantur ius ei, debet corrumpit ius ad. Lorem eloquentiam at pro, mollis propriae quaestio mea ne, ea vix aeterno suavitate. Nec id soluta eligendi.-->
+        <p style="font-size:11px; color:#999;">
+          [1] Qulaitative air quality index scale from <a href="http://airnow.gov/index.cfm?action=aqibasics.aqi">http://airnow.gov</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+{% block js %}
+  <script type='text/javascript'>
+  var data = {{data | safe}};
+  var city = "{{city | safe}}";
+  var area_key = "{{url_for('static', filename='images/area_key.jpg')}}";
+  //{{url_for('static', filename='images/spinner.gif')}}
+  
+  </script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/chart.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/filter.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/boxplot.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/boxplotvertical.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/areachart.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/scorecard.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/city.js')}}"></script>
+{% endblock js %}
+

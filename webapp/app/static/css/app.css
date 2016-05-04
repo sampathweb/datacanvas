@@ -1,0 +1,284 @@
+
+
+.radial-date {
+  font-size: 11px;
+}
+
+#intro {
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+}
+
+.intro {
+  display: none;
+}
+
+#intro-close {
+  cursor: pointer;
+}
+
+.enter-btn-top {
+  width:150px; 
+  background:#999; 
+  color:#fff !important;
+}
+
+.enter-btn-top:hover {
+  width:150px; 
+  background:#666; 
+  color:#fff !important;
+}
+
+.enter-btn {
+  width:150px; 
+  background:#fff; 
+  color:#333 !important;
+  border-color:#ddd;
+}
+
+.enter-btn:hover {
+  width:150px; 
+  background:#eee; 
+  color:#333 !important;
+}
+
+#score-card td {
+  padding-right:10px;
+  width:16.6%;
+  vertical-align:top;
+   text-align:center;
+}
+
+#score-card .scores td {
+  padding-right:10px;
+  padding-bottom:10px;
+  width:16.6%;
+  vertical-align:top;
+  font-size:40px;
+}
+
+.score-text {
+  color:#999;
+}
+
+.boxplot .tick line{
+  opacity: 0.2;
+}
+
+#area-key {
+  cursor: pointer;
+}
+
+a {
+  color: #333 !important;
+}
+
+a.selected {
+  font-weight:bold;
+}
+
+button.on {
+  background:#333 !important;
+  color:#fff !important;
+}
+
+.container{
+  max-width: none !important;
+  width: 970px;
+}
+.chart-container {
+  min-height: 100px;
+}
+.header-1 {
+  /*font-family: 'Tinos', serif;*/
+  font-weight:400;
+  font-size:48px;
+  margin-top:18px; 
+  margin-bottom:38px;
+}
+
+.header-2 {
+  /*font-family: 'Tinos', serif;*/
+  font-weight:400;
+  font-size:26px; 
+  margin-top:0px;
+  margin-bottom:24px;
+}
+
+.header-3 {
+  /*font-family: 'Tinos', serif;*/
+  font-weight:700;
+  font-size:14px; 
+  margin-top:28px;
+  margin-bottom:24px;
+}
+
+.chart-header {
+  /*font-family: 'Tinos', serif;*/
+  font-weight:700;
+  font-size:14px; 
+  margin-top:38px;
+  margin-bottom:10px;
+}
+
+.header-5 {
+  font-weight: 700;
+}
+
+.dot {
+  border-radius: 50%; 
+  font-size:6px; 
+  padding:2px 3px 0px 4px; 
+  background:#009900; 
+  color:#009900; 
+  text-align:center;
+}
+
+/* Qualitative scale colors */
+.qualitative-default {
+  background:#555; color:#555; fill:#999; stroke :#999; stroke-width:1px;
+}
+
+.good { background:#33cc33; color:#33cc33; fill:#33cc33; stroke :#33cc33; stroke-width:1px;}
+.moderate { background:#eebb00; color:#eebb00; fill:#eebb00; stroke:#eebb00; stroke-width:1px; }
+.unhealthy-mild { background:rgb(255, 126, 0); color:rgb(255, 126, 0); fill:rgb(255, 126, 0); stroke:rgb(255, 126, 0); stroke-width:1px;}
+.unhealthy { background:#cc0000; color:#cc0000; fill:#cc0000; stroke:#cc0000; stroke-width:1px; }
+.unhealthy-very { background:rgb(153, 0, 76); color:rgb(153, 0, 76); fill:rgb(153, 0, 76); stroke:rgb(153, 0, 76); stroke-width:1px; }
+.hazardous { background:rgb(126, 0, 35); color:rgb(126, 0, 35); fill:rgb(126, 0, 35); stroke:rgb(126, 0, 35); stroke-width:1px; }
+
+.good-score { color:#33cc33;}
+.moderate-score { color:#eebb00; }
+.unhealthy-mild-score { color:rgb(255, 126, 0); }
+.unhealthy-score { color:#cc0000; }
+.unhealthy-very-score { color:rgb(153, 0, 76); }
+.hazardous-score { color:rgb(126, 0, 35); }
+
+.btn-compact { 
+  padding: 1px 2px 1px 2px; 
+  font-size:11px; 
+  text-align:center;
+}
+
+.btn-compact-2 { 
+  padding: 2px 10px 2px 10px; 
+  font-size:11px; 
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px; 
+}
+
+.filter-list li {
+  padding:0px;
+}
+
+.filter-list {
+  padding-left: 6px;
+}
+
+.small-text {
+  font-size: 11px; 
+}
+
+.header {
+  list-style-type: none; /*to remove bullets*/
+  margin: 0 auto;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.header li{
+  float:left;
+}
+
+.plot {
+  cursor: pointer;
+}
+
+/* Axis styles */
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #999;
+}
+
+.x.axis text {
+  fill: #999;
+  font-size: 11px;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #999;
+}
+
+.y.axis text {
+  fill: #999;
+  font-size: 11px;
+}
+
+/* Area chart style */
+.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+
+/* Tooltip */
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 5px;
+}
+
+.d3-tip-intro {
+  line-height: 1.1;
+  font-size: 11px;
+  padding: 1px;
+  color: #999;
+}
+/* Creates a small triangle extender for the tooltip */
+/*
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 20px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: right;
+}
+
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+*/
+
+.borderless td, .borderless th {
+  border: none !important;
+  border-top: none;
+}
+
+
+
+
+
